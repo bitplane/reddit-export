@@ -17,6 +17,7 @@ Then check the `./data` dir for your JSON export.
 ## 🔗 Links
 
 * [🏠 home](https://bitplane.net/dev/python/reddit-exporter)
+  * [📚 pydoc](https://bitplane.net/dev/python/reddit-exporter/pydoc)
 * [😺 github](https://github.com/bitplane/reddit-exporter)
 * [🐍 pypi](https://pypi.org/project/reddit-exporter)
 
