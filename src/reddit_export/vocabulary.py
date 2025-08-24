@@ -9,7 +9,6 @@ import argparse
 import subprocess
 import logging
 import string
-import re
 
 
 def normalize_text(text):
@@ -18,10 +17,7 @@ def normalize_text(text):
     filtered_words = [
         word.lower().translate(str.maketrans("", "", string.punctuation))
         for word in words
-        if "://" not in word
-        and "." not in word
-        and not any(char.isdigit() for char in word)
-        and len(word) > 1
+        if "://" not in word and "." not in word and not any(char.isdigit() for char in word) and len(word) > 1
     ]
     return filtered_words
 
@@ -35,9 +31,9 @@ def load_words_from_json(filename):
 
     for section in ["comments", "submitted"]:
         for entry in data.get(section, []):
-            text = entry["data"].get("body", "") or entry["data"].get(
-                "title", ""
-            ) + " " + entry["data"].get("selftext", "")
+            text = entry["data"].get("body", "") or entry["data"].get("title", "") + " " + entry["data"].get(
+                "selftext", ""
+            )
             words.update(normalize_text(text))
 
     return words
@@ -45,9 +41,7 @@ def load_words_from_json(filename):
 
 def load_aspell_dictionary():
     """Load all words from aspell dictionaries into a set."""
-    result = subprocess.run(
-        ["aspell", "dump", "master"], capture_output=True, text=True
-    )
+    result = subprocess.run(["aspell", "dump", "master"], capture_output=True, text=True)
     if result.returncode != 0:
         logging.error("Failed to load aspell dictionary")
         return set()
@@ -66,9 +60,7 @@ def find_new_words(json_file):
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Extract unique words from JSON and compare with system dictionary."
-    )
+    parser = argparse.ArgumentParser(description="Extract unique words from JSON and compare with system dictionary.")
     parser.add_argument(
         "json_file",
         help="Path to the JSON file containing comments and submitted posts.",

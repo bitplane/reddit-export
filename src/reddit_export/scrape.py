@@ -61,9 +61,7 @@ def save_reddit_data(output_dir, username):
                 entry_id = entry["data"]["id"]
                 if entry_id in existing_data[kind]:
                     stored_entry = existing_data[kind][entry_id]
-                    if get_modification_date(entry) <= get_modification_date(
-                        stored_entry
-                    ):
+                    if get_modification_date(entry) <= get_modification_date(stored_entry):
                         continue  # Skip unchanged entries
 
                 existing_data[kind][entry_id] = entry  # Store/update entry
@@ -95,13 +93,9 @@ def save_reddit_data(output_dir, username):
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Scrape Reddit posts and comments from a user and save to JSON."
-    )
+    parser = argparse.ArgumentParser(description="Scrape Reddit posts and comments from a user and save to JSON.")
     parser.add_argument("username", help="Reddit username to scrape")
-    parser.add_argument(
-        "--output-dir", default="data", help="Directory to save output files"
-    )
+    parser.add_argument("--output-dir", default="data", help="Directory to save output files")
     parser.add_argument(
         "--log-level",
         default="ERROR",
@@ -110,9 +104,7 @@ def main():
     )
     args = parser.parse_args()
 
-    logging.basicConfig(
-        format="%(levelname)s: %(message)s", level=args.log_level.upper()
-    )
+    logging.basicConfig(format="%(levelname)s: %(message)s", level=args.log_level.upper())
     save_reddit_data(args.output_dir, args.username)
 
 
